@@ -2,23 +2,21 @@
 include_once 'Grid.php';
 include_once 'Game.php';
 
-$game = new Game(10);
-$game->play();
+$resolution = 5;
+$numberOfGeneration = 5;
+
+$game = new Game($resolution, $numberOfGeneration);
 ?>
 
 <html>
-<body style="font-family: "Courier New">
-	<strong>Old Generation</strong>
-	<br><br>
-	
-	<?php echo $game->getOldGrid()->createCanvas(); ?>
-	
-	<br>
-	
-	<strong>New Generation</strong>
-	<br><br>
-	
-	<?php echo $game->getNewGrid()->createCanvas(); ?>
-	
+<head>
+	<style type="text/css">
+        body {
+            font-family: Monaco, "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+        }
+	</style>
+</head>
+<body>
+	<?php $game->run(); ?>
 </body>
 </html>

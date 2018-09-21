@@ -7,11 +7,19 @@ Rules of Game of Life:
 3. Any live cell with two or three live neighbours lives, unchanged, to the next generation.
 4. Any dead cell with exactly three live neighbours comes to life.
 
+Every generation is rebuild based on the previouse generation cells.
+
 ## Run
 If you need to run this application just run the ```index.php```.
 
 ## Usage
 If you need to change the array combination just change the ```$resolution``` value in ```index.php```.
 ```
-$game = new Game(25);
+$resolution = 10;
+```
+
+If you need to change the number of generation produced just change the ```$numberOfGeneration``` value in ```index.php```.
+
+```
+$numberOfGeneration = 5;
 ```

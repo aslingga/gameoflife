@@ -1,30 +1,43 @@
 <?php
 class Game {
     public $cols;
-    public $rows;
+    public $row;
+    public $numberOfGeneration;
     public $oldGrid;
     public $newGrid;
     
-    public function __construct($resolution) {
+    public function __construct($resolution, $numberOfGeneration) {
         $this->cols = $resolution;
-        $this->rows = $resolution;
+        $this->row = $resolution;
+        $this->numberOfGeneration = $numberOfGeneration;
     }
     
-    public function play() {
-        $this->oldGrid = new Grid($this->cols, $this->rows);        
-        $this->newGrid = new Grid($this->cols, $this->rows);
+    public function run() {
+        $this->oldGrid = new Grid($this->cols, $this->row);        
+        $this->newGrid = new Grid($this->cols, $this->row);
         
-        $this->oldGrid->generateCells();        
-        $this->buildNewGeneration();
+        $this->oldGrid->generateCells();
+        $this->oldGrid->createCanvas('Original Generation'); 
+        $this->play($this->numberOfGeneration);
+    }
+    
+    public function play($numberOfGeneration) {        
+        for ($i = 1; $i <= $numberOfGeneration; $i++) {
+            $this->buildNewGeneration();
+            $this->newGrid->createCanvas('#' . $i . ' Generation');            
+            
+            $this->oldGrid = $this->newGrid;
+            $this->newGrid = new Grid($this->cols, $this->row);
+        }
     }
     
     public function buildNewGeneration() {
         for ($i = 0; $i < $this->cols; $i++) {
-            for ($j = 0; $j < $this->rows; $j++) {
+            for ($j = 0; $j < $this->row; $j++) {
                 $state = $this->oldGrid->getCell($i, $j);
                 
-                // Edges
-                if ($i == 0 || $i == $this->cols - 1 || $j == 0 || $j == $this->rows - 1) {                    
+                // Edges of the borders
+                if ($i == 0 || $i == $this->cols - 1 || $j == 0 || $j == $this->row - 1) {                    
                     $this->newGrid->setCell($i, $j, $state);
                 }
                 else {
@@ -44,11 +57,11 @@ class Game {
         }
     }
     
-    public function getoldGrid() {
+    public function getOldGrid() {
         return $this->oldGrid;
     }
     
-    public function getnewGrid() {
+    public function getNewGrid() {
         return $this->newGrid;
     }
     

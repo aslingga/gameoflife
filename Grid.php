@@ -11,7 +11,7 @@ class Grid {
         
         for ($i = 0; $i < $this->cols; $i++) {
             for ($j = 0; $j < $this->rows; $j++) {
-                $this->cells[$i][$j] = '-';
+                $this->cells[$i][$j] = 0;
             }
         }
     }
@@ -26,14 +26,19 @@ class Grid {
         return $this;
     }
     
-    public function createCanvas() {
+    public function createCanvas($header) {
+        echo '<strong>' . $header . '</strong><br><br>';
+        
         for ($i = 0; $i < $this->cols; $i++) {
             for ($j = 0; $j < $this->rows; $j++) {
-                echo ' ' . $this->cells[$i][$j] . ' ';
+                $mark = $this->cells[$i][$j] == 1 ? '*' : '-';
+                echo ' ' . $mark . ' ';
             }
             
             echo '<br>';
         }
+        
+        echo '<br><br>';
     }
     
     public function getCell($x, $y) {
